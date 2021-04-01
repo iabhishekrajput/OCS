@@ -8,11 +8,11 @@ import {
   Text,
   useColorMode,
 } from "@chakra-ui/react";
-import { ColorModeSwitcher } from "../../ColorModeSwitcher";
 
-interface NavBarProps {}
+import { ColorModeSwitcher } from "../../../ColorModeSwitcher";
+import { Link } from "react-router-dom";
 
-export const NavBar: React.FC<NavBarProps> = () => {
+export const NavBar = () => {
   const { colorMode } = useColorMode();
 
   return (
@@ -44,6 +44,8 @@ export const NavBar: React.FC<NavBarProps> = () => {
           <Flex direction="row" mx={12} alignItems="center">
             <HStack mx={8}>
               <Button
+                to="/"
+                as={Link}
                 size="md"
                 fontSize="lg"
                 variant="ghost"

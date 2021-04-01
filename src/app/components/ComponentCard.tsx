@@ -1,5 +1,6 @@
 import { Text, Heading, Link, theme, Flex } from "@chakra-ui/react";
 import React from "react";
+import { Link as RouterLink } from "react-router-dom";
 
 const Status = ({ status }: { status: "success" | "failed" | "warning" }) => {
   switch (status) {
@@ -26,15 +27,21 @@ const Status = ({ status }: { status: "success" | "failed" | "warning" }) => {
   }
 };
 
-export const ServerCard = ({
+export const ComponentCard = ({
+  id,
   title,
   status,
+  url,
 }: {
+  id: string;
   title: string;
   status: "success" | "failed" | "warning";
+  url: string;
 }) => {
   return (
     <Link
+      as={RouterLink}
+      to={url}
       _hover={{
         shadow: "2xl",
         backgroundColor: theme.colors.whiteAlpha[50],

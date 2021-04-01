@@ -1,6 +1,7 @@
 import * as React from "react";
 import { Breadcrumb, BreadcrumbItem, BreadcrumbLink } from "@chakra-ui/react";
 import { ChevronRightIcon } from "@chakra-ui/icons";
+import { Link } from "react-router-dom";
 
 const BreadcrumbLayout = ({
   breadcrumbData,
@@ -19,7 +20,9 @@ const BreadcrumbLayout = ({
           key={item.id}
           isCurrentPage={breadcrumbData.length - 1 === index}
         >
-          <BreadcrumbLink href={item.url}>{item.title}</BreadcrumbLink>
+          <BreadcrumbLink as={Link} to={item.url}>
+            {item.title}
+          </BreadcrumbLink>
         </BreadcrumbItem>
       ))}
     </Breadcrumb>

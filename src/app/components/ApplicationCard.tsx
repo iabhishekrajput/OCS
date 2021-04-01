@@ -1,59 +1,58 @@
-import { Text, Heading, Link, theme, Flex } from "@chakra-ui/react";
+import { Box, Text, Heading, Link, theme } from "@chakra-ui/react";
 import React from "react";
+import { Link as RouterLink } from "react-router-dom";
 
 const Status = ({ status }: { status: "success" | "failed" | "warning" }) => {
   switch (status) {
     case "failed":
       return (
-        <Text marginX={4} fontSize="md" color="red">
+        <Text fontSize="md" color="red">
           Failed
         </Text>
       );
 
     case "success":
       return (
-        <Text marginX={4} fontSize="md" color="green">
+        <Text fontSize="md" color="green">
           Success
         </Text>
       );
 
     case "warning":
       return (
-        <Text marginX={4} fontSize="md" color="gold">
+        <Text fontSize="md" color="gold">
           Warning
         </Text>
       );
   }
 };
 
-export const ServiceCard = ({
+export const ApplicationCard = ({
+  id,
   title,
   status,
+  url,
 }: {
+  id: string;
   title: string;
   status: "success" | "failed" | "warning";
+  url: string;
 }) => {
   return (
     <Link
+      as={RouterLink}
+      to={url}
       _hover={{
         shadow: "2xl",
         backgroundColor: theme.colors.whiteAlpha[50],
       }}
     >
-      <Flex
-        flexDir="row"
-        p={2}
-        shadow="lg"
-        borderWidth="1px"
-        minW="50vw"
-        alignItems="center"
-        justifyContent="space-between"
-      >
-        <Heading fontSize="xl" m={4}>
+      <Box p={8} shadow="lg" borderWidth="1px" minW="25vw">
+        <Heading fontSize="2xl" m={4}>
           {title}
         </Heading>
         <Status status={status} />
-      </Flex>
+      </Box>
     </Link>
   );
 };
