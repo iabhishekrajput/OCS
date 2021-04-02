@@ -25,13 +25,13 @@ function ApplicationPage({
   }, [setBreadcrumbData]);
 
   return (
-    <Flex direction="column" justifyContent="center" alignItems="center">
+    <Flex direction="column" alignItems="center">
       <Heading fontSize="2xl" my={4}>
         Applications
       </Heading>
       <BreadcrumbLayout breadcrumbData={breadcrumbData} />
       <Divider my={8} width="80vw" />
-      <HStack spacing={8}>
+      <HStack spacing={8} flex={1} justifyContent="center">
         <ApplicationCard
           id="midas"
           status="failed"

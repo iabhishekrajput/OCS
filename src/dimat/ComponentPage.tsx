@@ -31,16 +31,12 @@ const ComponentPage = ({
       (appName === "midas" || appName === "ldr" || appName === "reds") &&
       setBreadcrumbData((prevState) => [
         ...prevState.slice(0, 1),
-        {
-          id: appName,
-          title: breadcrumbConstants[appName].title,
-          url: breadcrumbConstants[appName].url,
-        },
+        breadcrumbConstants[appName],
       ]);
   }, [appName, setBreadcrumbData]);
 
   return (
-    <Flex direction="column" justifyContent="center" alignItems="center">
+    <Flex direction="column" alignItems="center">
       <Heading fontSize="2xl" my={4}>
         Components
       </Heading>
@@ -69,7 +65,7 @@ const ComponentPage = ({
           id="webapplication"
           status="failed"
           title="Web Application"
-          url={`/servers?app=${appName}&component=webapplications`}
+          url={`/servers?app=${appName}&component=webapplication`}
         />
         <ComponentCard
           id="webservice"

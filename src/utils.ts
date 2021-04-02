@@ -9,6 +9,6 @@ export function toParam(query: string) {
         [key]: decodeURIComponent(value),
       };
     },
-    { app: "" }
+    { app: "", component: "" }
   );
 }
