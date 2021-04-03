@@ -1,41 +1,16 @@
-import { Text, Heading, Link, theme, Flex } from "@chakra-ui/react";
+import { Heading, Link, theme, Flex } from "@chakra-ui/react";
 import React from "react";
 import { Link as RouterLink } from "react-router-dom";
-
-const Status = ({ status }: { status: "success" | "failed" | "warning" }) => {
-  switch (status) {
-    case "failed":
-      return (
-        <Text marginX={4} fontSize="md" color="red">
-          Failed
-        </Text>
-      );
-
-    case "success":
-      return (
-        <Text marginX={4} fontSize="md" color="green">
-          Success
-        </Text>
-      );
-
-    case "warning":
-      return (
-        <Text marginX={4} fontSize="md" color="gold">
-          Warning
-        </Text>
-      );
-  }
-};
+import { StatusType } from "../../types";
+import Status from "./Status";
 
 export const ComponentCard = ({
-  id,
   title,
   status,
   url,
 }: {
-  id: string;
   title: string;
-  status: "success" | "failed" | "warning";
+  status: StatusType;
   url: string;
 }) => {
   return (

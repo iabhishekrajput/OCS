@@ -44,43 +44,36 @@ const ComponentPage = ({
       <Divider my={8} width="80vw" />
       <VStack spacing={8}>
         <ComponentCard
-          id="adlib"
           status="failed"
           title="ADLIB"
           url={`/servers?app=${appName}&component=adlib`}
         />
         <ComponentCard
-          id="xplore"
           status="warning"
           title="xPlore"
           url={`/servers?app=${appName}&component=xplore`}
         />
         <ComponentCard
-          id="openannotate"
           status="success"
           title="OpenAnnotate"
           url={`/servers?app=${appName}&component=openannotate`}
         />
         <ComponentCard
-          id="webapplication"
           status="failed"
           title="Web Application"
           url={`/servers?app=${appName}&component=webapplication`}
         />
         <ComponentCard
-          id="webservice"
           status="warning"
           title="Web Service"
           url={`/servers?app=${appName}&component=webservice`}
         />
         <ComponentCard
-          id="watermarkingservice"
           status="success"
           title="Watermarking Service"
           url={`/servers?app=${appName}&component=watermarkingservice`}
         />
         <ComponentCard
-          id="da"
           status="failed"
           title="DA"
           url={`/servers?app=${appName}&component=da`}

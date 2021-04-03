@@ -4,6 +4,9 @@ import { Flex, Heading, Divider } from "@chakra-ui/react";
 
 import { ApplicationCard } from "../app/components/ApplicationCard";
 import BreadcrumbLayout from "../app/layout/BreadcrumbLayout";
+import { StatusType } from "../types";
+//get below data from axios
+import { applications } from "../constants";
 
 function ApplicationPage({
   breadcrumbData,
@@ -20,9 +23,20 @@ function ApplicationPage({
     >
   >;
 }) {
+  const [applicationStatus, setApplicationStatus] = React.useState<
+    {
+      id: string;
+      title: string;
+      url: string;
+      status: StatusType;
+    }[]
+  >([]);
+
   React.useEffect(() => {
     setBreadcrumbData((prevState) => [...prevState.slice(0, 1)]);
-  }, [setBreadcrumbData]);
+    setApplicationStatus(applications);
+    // eslint-disable-next-line
+  }, []);
 
   return (
     <Flex direction="column" alignItems="center">
@@ -32,24 +46,14 @@ function ApplicationPage({
       <BreadcrumbLayout breadcrumbData={breadcrumbData} />
       <Divider my={8} width="80vw" />
       <HStack spacing={8} flex={1} justifyContent="center">
-        <ApplicationCard
-          id="midas"
-          status="failed"
-          title="MIDAS"
-          url="/components?app=midas"
-        />
-        <ApplicationCard
-          id="ldr"
-          status="warning"
-          title="LDR"
-          url="/components?app=ldr"
-        />
-        <ApplicationCard
-          id="reds"
-          status="success"
-          title="REDS"
-          url="/components?app=reds"
-        />
+        {applicationStatus.map((item) => (
+          <ApplicationCard
+            key={item.id}
+            status={item.status}
+            title={item.title}
+            url={item.url}
+          />
+        ))}
       </HStack>
       <Divider my={8} width="80vw" />
     </Flex>

@@ -1,41 +1,16 @@
-import { Box, Text, Heading, Link, theme } from "@chakra-ui/react";
+import { Box, Heading, Link, theme } from "@chakra-ui/react";
 import React from "react";
 import { Link as RouterLink } from "react-router-dom";
-
-const Status = ({ status }: { status: "success" | "failed" | "warning" }) => {
-  switch (status) {
-    case "failed":
-      return (
-        <Text fontSize="md" color="red">
-          Failed
-        </Text>
-      );
-
-    case "success":
-      return (
-        <Text fontSize="md" color="green">
-          Success
-        </Text>
-      );
-
-    case "warning":
-      return (
-        <Text fontSize="md" color="gold">
-          Warning
-        </Text>
-      );
-  }
-};
+import { StatusType } from "../../types";
+import Status from "./Status";
 
 export const ApplicationCard = ({
-  id,
   title,
   status,
   url,
 }: {
-  id: string;
   title: string;
-  status: "success" | "failed" | "warning";
+  status: StatusType;
   url: string;
 }) => {
   return (

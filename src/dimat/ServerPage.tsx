@@ -5,6 +5,7 @@ import { useHistory } from "react-router";
 import BreadcrumbLayout from "../app/layout/BreadcrumbLayout";
 import { breadcrumbConstants } from "../constants";
 import { toParam } from "../utils";
+import { ServerCard } from "../app/components/ServerCard";
 
 const ServerPage = ({
   breadcrumbData,
@@ -37,7 +38,8 @@ const ServerPage = ({
       (appName === "midas" || appName === "ldr" || appName === "reds") &&
       components.has(componentName) &&
       setBreadcrumbData((prevState) => [
-        ...prevState.slice(0, 2),
+        ...prevState.slice(0, 1),
+        breadcrumbConstants[appName],
         components.get(componentName),
       ]);
   }, [appName, componentName, setBreadcrumbData]);
@@ -49,7 +51,18 @@ const ServerPage = ({
       </Heading>
       <BreadcrumbLayout breadcrumbData={breadcrumbData} />
       <Divider my={8} width="80vw" />
-      <VStack spacing={8}></VStack>
+      <VStack spacing={8}>
+        <ServerCard title="Random Server 1" status="success" />
+        <ServerCard title="Random Server 2" status="success" />
+        <ServerCard title="Random Server 3" status="success" />
+        <ServerCard title="Random Server 4" status="success" />
+        <ServerCard title="Random Server 5" status="success" />
+        <ServerCard title="Random Server 6" status="success" />
+        <ServerCard title="Random Server 7" status="success" />
+        <ServerCard title="Random Server 8" status="success" />
+        <ServerCard title="Random Server 9" status="success" />
+        <ServerCard title="Random Server 10" status="success" />
+      </VStack>
       <Divider my={8} width="80vw" />
     </Flex>
   );
