@@ -29,7 +29,7 @@ export const ServerCard = ({
       justifyContent="space-between"
     >
       <Accordion allowToggle flex={1}>
-        <AccordionItem flex={1} p={2} borderTop="none">
+        <AccordionItem flex={1} border="none">
           <h2 style={{ flex: 1 }}>
             <AccordionButton flex={1} justifyContent="space-between">
               <Box textAlign="left">{title}</Box>

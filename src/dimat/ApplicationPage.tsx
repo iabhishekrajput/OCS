@@ -1,12 +1,11 @@
 import * as React from "react";
 import { HStack } from "@chakra-ui/layout";
-import { Flex, Heading, Divider } from "@chakra-ui/react";
+import { Flex, Heading, Divider, CircularProgress } from "@chakra-ui/react";
 
 import { ApplicationCard } from "../app/components/ApplicationCard";
 import BreadcrumbLayout from "../app/layout/BreadcrumbLayout";
 import { StatusType } from "../types";
-//get below data from axios
-import { applications } from "../constants";
+import axios from "axios";
 
 function ApplicationPage({
   breadcrumbData,
@@ -23,20 +22,106 @@ function ApplicationPage({
     >
   >;
 }) {
-  const [applicationStatus, setApplicationStatus] = React.useState<
+  const [applications, setApplications] = React.useState<
     {
-      id: string;
-      title: string;
+      id: number;
+      applicationName: string;
+      applicationTitle: string;
       url: string;
-      status: StatusType;
+      status?: StatusType;
     }[]
   >([]);
+  const [loading, setLoading] = React.useState(false);
 
   React.useEffect(() => {
     setBreadcrumbData((prevState) => [...prevState.slice(0, 1)]);
-    setApplicationStatus(applications);
+
+    const fetchApplications = async () => {
+      setLoading(true);
+
+      await axios
+        .get("http://localhost:8080/applications")
+        .then((response) => response.data)
+        .then(
+          (
+            data: {
+              id: number;
+              applicationName: string;
+              applicationTitle: string;
+            }[]
+          ) => {
+            const idata = data
+              .map((item) => ({
+                ...item,
+                url: `/components?app=${item.applicationName}`,
+              }))
+              .sort((a, b) => {
+                if (
+                  a.applicationName.toLowerCase() <
+                  b.applicationName.toLowerCase()
+                )
+                  return -1;
+                if (
+                  a.applicationName.toLowerCase() >
+                  b.applicationName.toLowerCase()
+                )
+                  return 1;
+                return 0;
+              });
+            setApplications(idata);
+          }
+        );
+
+      setLoading(false);
+    };
+
+    fetchApplications();
+
     // eslint-disable-next-line
   }, []);
+
+  React.useEffect(() => {
+    const fetchApplicationStatus = async () => {
+      applications.forEach(async (item) => {
+        await axios
+          .get(
+            `http://localhost:8080/status/application/${item.applicationName}`
+          )
+          .then((response) => response.data)
+          .then((data: { applicationName: string; status: StatusType }) => {
+            const application = applications.find(
+              (item) => item.applicationName === data.applicationName
+            );
+            setApplications((prevState) =>
+              application
+                ? [
+                    ...prevState.filter(
+                      (item) => item.applicationName !== data.applicationName
+                    ),
+                    { ...application, status: data.status },
+                  ].sort((a, b) => {
+                    if (
+                      a.applicationName.toLowerCase() <
+                      b.applicationName.toLowerCase()
+                    )
+                      return -1;
+                    if (
+                      a.applicationName.toLowerCase() >
+                      b.applicationName.toLowerCase()
+                    )
+                      return 1;
+                    return 0;
+                  })
+                : prevState
+            );
+          });
+      });
+    };
+
+    fetchApplicationStatus();
+
+    // eslint-disable-next-line
+  }, [applications.length]);
 
   return (
     <Flex direction="column" alignItems="center">
@@ -46,14 +131,20 @@ function ApplicationPage({
       <BreadcrumbLayout breadcrumbData={breadcrumbData} />
       <Divider my={8} width="80vw" />
       <HStack spacing={8} flex={1} justifyContent="center">
-        {applicationStatus.map((item) => (
-          <ApplicationCard
-            key={item.id}
-            status={item.status}
-            title={item.title}
-            url={item.url}
-          />
-        ))}
+        {loading ? (
+          <Flex justifyContent="center" alignItems="center">
+            <CircularProgress isIndeterminate />
+          </Flex>
+        ) : (
+          applications.map((item) => (
+            <ApplicationCard
+              key={item.id}
+              status={item.status}
+              title={item.applicationTitle}
+              url={item.url}
+            />
+          ))
+        )}
       </HStack>
       <Divider my={8} width="80vw" />
     </Flex>

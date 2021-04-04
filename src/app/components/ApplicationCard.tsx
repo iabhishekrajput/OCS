@@ -1,4 +1,4 @@
-import { Box, Heading, Link, theme } from "@chakra-ui/react";
+import { Box, CircularProgress, Heading, Link, theme } from "@chakra-ui/react";
 import React from "react";
 import { Link as RouterLink } from "react-router-dom";
 import { StatusType } from "../../types";
@@ -10,7 +10,7 @@ export const ApplicationCard = ({
   url,
 }: {
   title: string;
-  status: StatusType;
+  status?: StatusType;
   url: string;
 }) => {
   return (
@@ -26,7 +26,15 @@ export const ApplicationCard = ({
         <Heading fontSize="2xl" m={4}>
           {title}
         </Heading>
-        <Status status={status} />
+        {status ? (
+          <Status status={status} />
+        ) : (
+          <CircularProgress
+            size="24px"
+            color={theme.colors.blackAlpha[700]}
+            isIndeterminate
+          />
+        )}
       </Box>
     </Link>
   );

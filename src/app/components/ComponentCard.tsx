@@ -1,4 +1,4 @@
-import { Heading, Link, theme, Flex } from "@chakra-ui/react";
+import { Heading, Link, theme, Flex, CircularProgress } from "@chakra-ui/react";
 import React from "react";
 import { Link as RouterLink } from "react-router-dom";
 import { StatusType } from "../../types";
@@ -10,9 +10,10 @@ export const ComponentCard = ({
   url,
 }: {
   title: string;
-  status: StatusType;
+  status?: StatusType;
   url: string;
 }) => {
+  console.log("App: ", title, ", Status: ", status);
   return (
     <Link
       as={RouterLink}
@@ -34,7 +35,16 @@ export const ComponentCard = ({
         <Heading fontSize="xl" m={4}>
           {title}
         </Heading>
-        <Status status={status} />
+        {status ? (
+          <Status status={status} />
+        ) : (
+          <CircularProgress
+            size="24px"
+            mx={6}
+            color={theme.colors.blackAlpha[700]}
+            isIndeterminate
+          />
+        )}
       </Flex>
     </Link>
   );
