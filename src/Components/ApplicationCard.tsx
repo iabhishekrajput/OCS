@@ -16,7 +16,6 @@ import { Link as RouterLink } from "react-router-dom";
 
 import { fetchApplicationStatus } from "../FetchData";
 import { StatusText } from "./StatusText";
-import { AxiosError } from "axios";
 import { RepeatIcon } from "@chakra-ui/icons";
 
 export const ApplicationCard = ({
@@ -45,6 +44,7 @@ export const ApplicationCard = ({
           m={2}
           variant="link"
           justifyContent="center"
+          isDisabled={status === "loading"}
           _hover={{ color: theme.colors.current }}
           _focus={{}}
           onClick={async () => {
@@ -63,6 +63,7 @@ export const ApplicationCard = ({
           alignItems="center"
           justifyContent="center"
           height="16vh"
+          minH="150px"
           _hover={{
             backgroundColor:
               colorMode === "light"
@@ -76,15 +77,13 @@ export const ApplicationCard = ({
             {title}
           </Heading>
           {status === "success" && data ? (
-            <StatusText status={data.status} message={data.message} />
+            <StatusText status={data.status} />
           ) : status === "error" && error ? (
-            <StatusText
-              status="warning"
-              message={(error as AxiosError).message}
-            />
+            <StatusText status="warning" />
           ) : (
             <CircularProgress
               size="24px"
+              mx={4}
               color={theme.colors.blackAlpha[700]}
               isIndeterminate
             />

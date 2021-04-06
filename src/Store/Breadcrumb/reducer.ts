@@ -4,7 +4,7 @@ import * as actionTypes from "./types";
 const initialState: {
   breadcrumbs: BreadcrumbType[];
 } = {
-  breadcrumbs: [{ name: "home", url: "/application", title: "Home" }],
+  breadcrumbs: [{ name: "home", url: "/", title: "Home" }],
 };
 
 export const breadcrumbReducer = (

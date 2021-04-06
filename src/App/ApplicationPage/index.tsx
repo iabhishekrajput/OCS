@@ -5,9 +5,22 @@ import { ApplicationCard } from "../../Components/ApplicationCard";
 import BreadcrumbLayout from "../../Layout/BreadcrumbLayout";
 import { useQuery } from "react-query";
 import { fetchApplications } from "../../FetchData";
+import { useDispatch } from "react-redux";
+import { setBreadcrumbToApplications } from "../../Store/Breadcrumb/actions";
 
 function ApplicationPage() {
   const { data, isLoading } = useQuery("applications", fetchApplications);
+  const dispatch = useDispatch();
+
+  React.useEffect(() => {
+    let _isMounted = true;
+
+    _isMounted && dispatch(setBreadcrumbToApplications());
+
+    return () => {
+      _isMounted = false;
+    };
+  }, [dispatch]);
 
   return (
     <Flex direction="column" alignItems="center">

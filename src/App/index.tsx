@@ -1,14 +1,13 @@
 import * as React from "react";
-import { Redirect, Route, Switch } from "react-router";
+import { Route, Switch } from "react-router-dom";
 import { Progress } from "@chakra-ui/react";
 import { Layout } from "../Layout";
-import ApplicationPage from "./Applications";
+import routes from "../Routes";
 
 export const App = () => {
   return (
     <Layout>
-      <ApplicationPage />
-      {/* <React.Suspense
+      <React.Suspense
         fallback={
           <Progress
             size="xs"
@@ -32,10 +31,9 @@ export const App = () => {
                 component={route.component}
               />
             ) : null;
-          })} 
-          <Redirect exact from="/" to="/" />
+          })}
         </Switch>
-      </React.Suspense> */}
+      </React.Suspense>
     </Layout>
   );
 };

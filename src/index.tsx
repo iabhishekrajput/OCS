@@ -17,20 +17,25 @@ const queryClient = new QueryClient({
     queries: {
       refetchOnWindowFocus: false,
       refetchOnReconnect: false,
+      refetchOnMount: false,
+      refetchIntervalInBackground: true,
+      refetchInterval: 1000 * 60 * 15,
     },
   },
 });
 
 ReactDOM.render(
-  <Provider store={store}>
-    <QueryClientProvider client={queryClient}>
-      <BrowserRouter basename={config.applicationBasename}>
-        <ColorModeScript />
-        <App />
-        <ReactQueryDevtools initialIsOpen={false} />
-      </BrowserRouter>
-    </QueryClientProvider>
-  </Provider>,
+  <React.StrictMode>
+    <Provider store={store}>
+      <QueryClientProvider client={queryClient}>
+        <BrowserRouter basename={`/${config.applicationBasename}`}>
+          <ColorModeScript />
+          <App />
+          <ReactQueryDevtools initialIsOpen={false} />
+        </BrowserRouter>
+      </QueryClientProvider>
+    </Provider>
+  </React.StrictMode>,
   document.getElementById("root")
 );
 

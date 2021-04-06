@@ -26,23 +26,21 @@ export const NavBar = () => {
       borderBottom="1px solid lightgray"
       opacity={0.9}
     >
-      <Flex align="center" flex={1} margin="auto" my={3}>
+      <Flex align="center" flex={1} margin="auto" my={3} mx="4vw">
         <Box mr="auto">
           <Flex
             direction="column"
             alignItems="flex-end"
             justifyContent="flex-end"
-            mx={12}
+            minW={240}
           >
             <Heading size="lg">One Click Source</Heading>
-            <Text fontSize="xs" mx={1}>
-              by Content Management
-            </Text>
+            <Text fontSize="xs">by Content Management</Text>
           </Flex>
         </Box>
         <Box ml="auto">
-          <Flex direction="row" mx={12} alignItems="center">
-            <HStack mx={8}>
+          <Flex direction="row" alignItems="center">
+            <HStack>
               <Button
                 to="/"
                 as={Link}

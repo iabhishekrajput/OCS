@@ -1,4 +1,4 @@
 export const config = {
   applicationBasename: "ocs",
-  serverHostname: "http://localhost:8080",
+  serverHostname: "http://192.168.0.111:8080",
 };

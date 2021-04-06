@@ -1,6 +1,11 @@
 import axios from "axios";
 import { config } from "../config";
-import { ApplicationStatusType, ApplicationsType } from "../Types";
+import {
+  ApplicationStatusType,
+  ApplicationsType,
+  ComponentStatusType,
+  ComponentType,
+} from "../Types";
 
 const cancelTokenSource = axios.CancelToken.source();
 
@@ -9,11 +14,8 @@ const axiosInterceptor = axios.create({
   cancelToken: cancelTokenSource.token,
 });
 
-export const fetchApplicationStatus = async (applicationName: string) => {
-  const response = await axiosInterceptor.get<ApplicationStatusType>(
-    `/status/application/${applicationName}`
-  );
-  return response.data;
+export const cancelRequest = () => {
+  cancelTokenSource.cancel();
 };
 
 export const fetchApplications = async () => {
@@ -23,6 +25,26 @@ export const fetchApplications = async () => {
   return response.data;
 };
 
-export const cancelRequest = () => {
-  cancelTokenSource.cancel();
+export const fetchApplicationStatus = async (applicationName: string) => {
+  const response = await axiosInterceptor.get<ApplicationStatusType>(
+    `/status/${applicationName}`
+  );
+  return response.data;
+};
+
+export const fetchComponents = async (applicationName: string) => {
+  const response = await axiosInterceptor.get<ComponentType[]>(
+    `/components?app=${applicationName}`
+  );
+  return response.data;
+};
+
+export const fetchComponentStatus = async (
+  applicationName: string,
+  componentName: string
+) => {
+  const response = await axiosInterceptor.get<ComponentStatusType>(
+    `/status/${applicationName}/${componentName}`
+  );
+  return response.data;
 };

@@ -1,38 +1,32 @@
 import * as React from "react";
-import { Text, useColorMode } from "@chakra-ui/react";
+import { Icon } from "@chakra-ui/react";
 import { StatusType } from "../Types";
+import {
+  IoIosCheckmarkCircle,
+  IoIosCloseCircle,
+  IoIosWarning,
+} from "react-icons/io";
 
-export const StatusText = ({
-  status,
-  message,
-}: {
-  status: StatusType;
-  message: string;
-}) => {
-  const { colorMode } = useColorMode();
-
-  const actualColor = colorMode === "dark" ? "light" : "dark";
-
+export const StatusText = ({ status }: { status: StatusType }) => {
   switch (status) {
     case "error":
       return (
-        <Text marginX={4} fontSize="md" color={`${actualColor}red`}>
-          {message}
-        </Text>
+        <Icon mx={4} fontSize="24px" color="red" as={IoIosCloseCircle}></Icon>
       );
 
     case "success":
       return (
-        <Text marginX={4} fontSize="md" color={`${actualColor}green`}>
-          {message}
-        </Text>
+        <Icon
+          mx={4}
+          fontSize="24px"
+          color="green"
+          as={IoIosCheckmarkCircle}
+        ></Icon>
       );
 
     case "warning":
       return (
-        <Text marginX={4} fontSize="md" color={`${actualColor}yellow`}>
-          {message}
-        </Text>
+        <Icon mx={4} fontSize="24px" color="goldenrod" as={IoIosWarning}></Icon>
       );
   }
 };
