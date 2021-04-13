@@ -13,32 +13,26 @@ import { useDispatch } from "react-redux";
 import BreadcrumbLayout from "../../Layout/BreadcrumbLayout";
 import { fetchApplications, fetchComponents } from "../../FetchData";
 import { ComponentCard } from "../../Components/ComponentCard";
-import { setBreadcrumbToComponents } from "../../Store/Breadcrumb/actions";
+import { setComponentsBreadcrumb } from "../../Store/Breadcrumb/actions";
 
 const ComponentPage = () => {
   const { application: applicationName } = useParams<{ application: string }>();
 
-  const { data: applications } = useQuery("applications", fetchApplications);
   const { data, isLoading } = useQuery(["components", applicationName], () =>
     fetchComponents(applicationName)
   );
 
+  const { data: applications } = useQuery("applications", fetchApplications);
+
   const dispatch = useDispatch();
 
-  const application = applications
-    ? applications.find((item) => item.name === applicationName)
-    : null;
-
   React.useEffect(() => {
-    application &&
-      dispatch(
-        setBreadcrumbToComponents({
-          name: applicationName,
-          title: application.title,
-          url: `/${applicationName}`,
-        })
-      );
-  }, [application, applicationName, dispatch]);
+    const application =
+      applications &&
+      applications.find((item) => item.name === applicationName);
+
+    application && dispatch(setComponentsBreadcrumb(application));
+  }, [applications, applicationName, dispatch]);
 
   return (
     <Flex direction="column" alignItems="center" minH="80vh">

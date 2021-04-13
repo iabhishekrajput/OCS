@@ -6,7 +6,7 @@ import BreadcrumbLayout from "../../Layout/BreadcrumbLayout";
 import { useQuery } from "react-query";
 import { fetchApplications } from "../../FetchData";
 import { useDispatch } from "react-redux";
-import { setBreadcrumbToApplications } from "../../Store/Breadcrumb/actions";
+import { setApplicationBreadcrumb } from "../../Store/Breadcrumb/actions";
 
 function ApplicationPage() {
   const { data, isLoading } = useQuery("applications", fetchApplications);
@@ -15,7 +15,7 @@ function ApplicationPage() {
   React.useEffect(() => {
     let _isMounted = true;
 
-    _isMounted && dispatch(setBreadcrumbToApplications());
+    _isMounted && dispatch(setApplicationBreadcrumb());
 
     return () => {
       _isMounted = false;
@@ -29,7 +29,7 @@ function ApplicationPage() {
       </Heading>
       <BreadcrumbLayout />
       <Divider my={8} width="80vw" />
-      <HStack spacing={8} flex={1} justifyContent="center">
+      <HStack spacing={8} flex={1} justifyContent="center" flexWrap="wrap">
         {!isLoading && data ? (
           data.map((item) => (
             <ApplicationCard

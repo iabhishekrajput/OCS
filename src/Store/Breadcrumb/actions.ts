@@ -1,28 +1,49 @@
-import { BreadcrumbType } from "../../Types";
+import {
+  ApplicationType,
+  BreadcrumbActionType,
+  ComponentType,
+} from "../../Types";
 import * as actionTypes from "./types";
 
-export const setBreadcrumbToApplications = () => {
+export const setApplicationBreadcrumb = () => {
   return {
-    type: actionTypes.HOME_BREADCRUMB,
+    type: actionTypes.SET_BREADBRUMB,
     payload: [],
   };
 };
 
-export const setBreadcrumbToComponents = (
-  applicationBreadcrumb: BreadcrumbType
-) => {
+export const setComponentsBreadcrumb = (
+  application: ApplicationType
+): BreadcrumbActionType => {
   return {
-    type: actionTypes.APPLICATION_BREADCRUMB,
-    payload: [applicationBreadcrumb],
+    type: actionTypes.SET_BREADBRUMB,
+    payload: [
+      {
+        name: application.name,
+        title: application.title,
+        url: `/${application.name}`,
+      },
+    ],
   };
 };
 
-export const setBreadcrumbToServers = (
-  applicationBreadcrumb: BreadcrumbType,
-  componentBreadcrumb: BreadcrumbType
-) => {
+export const setServersBreadcrumb = (
+  application: ApplicationType,
+  component: ComponentType
+): BreadcrumbActionType => {
   return {
-    type: actionTypes.COMPONENT_BREADCRUMB,
-    payload: [applicationBreadcrumb, componentBreadcrumb],
+    type: actionTypes.SET_BREADBRUMB,
+    payload: [
+      {
+        name: application.name,
+        title: application.title,
+        url: `/${application.name}`,
+      },
+      {
+        name: component.name,
+        title: component.title,
+        url: `/${application.name}/${component.name}`,
+      },
+    ],
   };
 };

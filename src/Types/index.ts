@@ -11,7 +11,7 @@ export type BreadcrumbActionType = {
 
 export type StatusType = "success" | "error" | "warning";
 
-export type ApplicationsType = {
+export type ApplicationType = {
   id: number;
   name: string;
   title: string;
@@ -32,4 +32,11 @@ export type ComponentStatusType = {
   name: string;
   applicationName: string;
   status: StatusType;
+};
+
+export type ServerType = {
+  id: number;
+  name: string;
+  title: string;
+  os: string;
 };

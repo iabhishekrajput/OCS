@@ -2,9 +2,10 @@ import axios from "axios";
 import { config } from "../config";
 import {
   ApplicationStatusType,
-  ApplicationsType,
+  ApplicationType,
   ComponentStatusType,
   ComponentType,
+  ServerType,
 } from "../Types";
 
 const cancelTokenSource = axios.CancelToken.source();
@@ -19,7 +20,7 @@ export const cancelRequest = () => {
 };
 
 export const fetchApplications = async () => {
-  const response = await axiosInterceptor.get<ApplicationsType[]>(
+  const response = await axiosInterceptor.get<ApplicationType[]>(
     "/applications"
   );
   return response.data;
@@ -46,5 +47,19 @@ export const fetchComponentStatus = async (
   const response = await axiosInterceptor.get<ComponentStatusType>(
     `/status/${applicationName}/${componentName}`
   );
+  return response.data;
+};
+
+export const fetchServers = async (
+  applicationName: string,
+  componentName: string
+) => {
+  const response = await axiosInterceptor.get<ServerType[]>("servers", {
+    params: {
+      app: applicationName,
+      component: componentName,
+    },
+  });
+
   return response.data;
 };
