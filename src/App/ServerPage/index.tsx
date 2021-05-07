@@ -51,7 +51,7 @@ const ServerPage = () => {
   return (
     <Flex direction="column" alignItems="center" minH="80vh">
       <Heading fontSize="2xl" my={4}>
-        Components
+        Servers
       </Heading>
       <BreadcrumbLayout />
       <Divider my={8} width="80vw" />
